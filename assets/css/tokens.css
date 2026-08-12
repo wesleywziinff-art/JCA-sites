@@ -1,0 +1,59 @@
+/* JCA — Design tokens
+   Identidade extraída da logo: monocromia de alto contraste, itálico
+   agressivo e corte diagonal. Preto absoluto como base, branco como
+   protagonista, grafite metálico como acento. */
+
+:root {
+  /* Base */
+  --jca-black: #000000;
+  --jca-ink: #070708;
+  --jca-carbon: #0e0f11;
+  --jca-graphite: #17191c;
+  --jca-steel: #2a2d32;
+  --jca-ash: #4a4f57;
+  --jca-smoke: #8b9099;
+  --jca-fog: #c6cad0;
+  --jca-white: #ffffff;
+
+  /* Acento metálico (substitui o vermelho da referência) */
+  --jca-chrome-1: #f2f4f7;
+  --jca-chrome-2: #9aa1ab;
+  --jca-chrome-3: #5c626c;
+  --jca-accent: #d6dae0;
+
+  /* Superfícies */
+  --surface-0: var(--jca-black);
+  --surface-1: var(--jca-ink);
+  --surface-2: var(--jca-carbon);
+  --surface-3: var(--jca-graphite);
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.22);
+
+  /* Texto */
+  --text-1: var(--jca-white);
+  --text-2: var(--jca-fog);
+  --text-3: var(--jca-smoke);
+
+  /* Tipografia */
+  --font-display: "Archivo", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  --step--1: clamp(0.72rem, 0.69rem + 0.15vw, 0.8rem);
+  --step-0: clamp(0.94rem, 0.9rem + 0.2vw, 1.02rem);
+  --step-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --step-3: clamp(2rem, 1.6rem + 2vw, 3.2rem);
+  --step-4: clamp(2.8rem, 1.9rem + 4.2vw, 5.6rem);
+
+  /* Ritmo */
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --section-y: clamp(4rem, 9vw, 8.5rem);
+  --maxw: 1360px;
+
+  /* Movimento */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.6s;
+
+  /* Marca */
+  --skew: -12deg; /* inclinação do lettering da logo */
+}
