@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery | Wrap, Tint &amp; Chrome Delete Work | JCA Atlanta</title>
+<meta name="description" content="Photo gallery of vinyl wrap, window tint and chrome delete work completed at JCA in Atlanta, Georgia. Filter by service to see finished vehicles.">
+<meta property="og:title" content="Gallery | JCA Atlanta">
+<meta property="og:description" content="Finished wraps, tint and chrome delete work from around metro Atlanta.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="JCA home">
+      <img src="images/jca-logo.png" alt="JCA" width="92" height="25">
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html" class="is-active" aria-current="page">Gallery</a>
+      <a href="contact.html" class="btn btn--solid btn--sm">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-hero page-hero--gallery">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><span>/</span><span>Gallery</span>
+      </nav>
+      <h1>Our <span class="chrome-text">Work</span></h1>
+      <p class="lead">Vehicles we have finished around metro Atlanta. Filter by service, or click any photo to open it full size.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Every tile is the same 1:1 card: photo only, no category filter and no
+           label overlay. The lightbox caption falls back to each image's alt. -->
+      <div class="mosaic reveal">
+        <button class="tile" type="button">
+          <img src="images/trabalho-01.jpg" width="900" height="1200" loading="lazy"
+               alt="Chevrolet Silverado finished in a matte military green color change wrap, parked in a driveway">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-02.jpg" width="900" height="1200" loading="lazy"
+               alt="Blue Lexus IS with ceramic tinted glass, parked outside after installation">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-03.jpg" width="1200" height="900" loading="lazy"
+               alt="Chevrolet Silverado with freshly tinted glass, front end partially disassembled during the install">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-04.jpg" width="900" height="1200" loading="lazy"
+               alt="Blue Lexus IS with tinted glass and a blacked-out roof, parked in a customer's garage">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-05.jpg" width="900" height="1200" loading="lazy"
+               alt="White Jeep Grand Cherokee with tinted glass and blacked-out wheels in a driveway">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-06.jpg" width="900" height="1200" loading="lazy"
+               alt="White sedan with a blacked-out roof and tinted glass, parked in a driveway">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-07.jpg" width="900" height="1200" loading="lazy"
+               alt="White Jeep Grand Cherokee with window surrounds, pillars and roof rails blacked out">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-08.jpg" width="900" height="1200" loading="lazy"
+               alt="Black McLaren 720S with tinted glass and blacked-out wheels on a residential street">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-09.jpg" width="900" height="1200" loading="lazy"
+               alt="Lifted white GMC Sierra with tinted glass, parked in a driveway">
+        </button>
+
+        <button class="tile" type="button">
+          <img src="images/trabalho-10.jpg" width="900" height="1200" loading="lazy"
+               alt="Porsche Boxster part way through a blue color change wrap, with the original white paint still showing">
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container reveal">
+      <span class="eyebrow">Your Car Next</span>
+      <h2>Want this finish?</h2>
+      <p class="lead">Send us your vehicle details and the look you are after. We will put together options and pricing.</p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="contact.html">Request a Quote</a>
+        <a class="btn btn--ghost" href="services.html">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================= LIGHTBOX ============================= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery image" aria-hidden="true">
+  <button class="lightbox__close" type="button" aria-label="Close gallery image">&times;</button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous image">&#8249;</button>
+  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next image">&#8250;</button>
+  <div>
+    <img src="" alt="">
+    <p class="lightbox__caption"></p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/jca-logo.png" alt="JCA" width="110" height="30">
+        <p>Mobile automotive styling in Atlanta, Georgia. Vinyl wrap, window tint and chrome delete, done at your place.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Service Area</h4>
+        <address>
+          Mobile service across<br>
+          metro Atlanta, GA
+        </address>
+        <p style="margin-top:14px">Mon&ndash;Fri 9:00 AM &ndash; 6:00 PM<br>Sat 10:00 AM &ndash; 4:00 PM</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+16788984249">(678) 898-4249</a></li>
+          <li><a href="mailto:info@jcaatlanta.com">info@jcaatlanta.com</a></li>
+          <li><a href="contact.html">Request a quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span>&copy; <span data-year>2026</span> JCA. All rights reserved.</span>
+      <span>Atlanta, Georgia &middot; Vinyl Wrap &middot; Window Tint &middot; Chrome Delete</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

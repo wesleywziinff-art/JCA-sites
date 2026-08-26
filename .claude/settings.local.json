@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -laR \"C:/Users/wesle/Desktop/JCA SITE\"; ls -la \"C:/Users/wesle/Desktop/\" | head -50)",
+      "PowerShell(try { $v = & python --version 2>&1; \"output: $v\" } catch { \"failed: $_\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8080/index.html\" -UseBasicParsing -TimeoutSec 10; \"status: $\\($r.StatusCode\\)  bytes: $\\($r.RawContentLength\\)\" } catch { \"error: $_\" })"
+    ]
+  }
+}

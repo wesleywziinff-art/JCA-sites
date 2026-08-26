@@ -1,0 +1,1252 @@
+/* ==========================================================================
+   JCA — Atlanta, GA
+   Vinyl Wrap · Window Tint · Chrome Delete
+   Single stylesheet, no build step. Edit tokens below to retheme the site.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand palette — monochrome, taken from the JCA wordmark */
+  --black:        #08080a;
+  --bg:           #0b0b0c;
+  --surface:      #111114;
+  --surface-2:    #17181c;
+  --surface-3:    #1f2126;
+  --line:         rgba(255, 255, 255, 0.10);
+  --line-strong:  rgba(255, 255, 255, 0.22);
+
+  --white:        #ffffff;
+  --text:         #f2f3f5;
+  --muted:        #9a9ba3;
+  --muted-dim:    #6d6e77;
+
+  /* Steel blue for the home service card titles. The requested #3B5978 scored
+     2.7:1 against --bg, under the 3:1 floor for large text; this is the same
+     hue lightened to 4.87:1, which passes at any size. */
+  --steel:        #5b82a8;
+
+  /* "Chrome" accent replaces the red of the reference layout */
+  --chrome:       linear-gradient(100deg, #ffffff 0%, #b9bec4 28%, #ffffff 46%, #7d838a 68%, #eef0f2 100%);
+  --chrome-soft:  linear-gradient(100deg, #f4f5f6, #c7ccd1 55%, #eef0f2);
+
+  /* Type */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --font-body:    'Barlow', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Layout */
+  --container: 1240px;
+  --gutter: 24px;
+  --header-h: 88px;
+  --header-h-sm: 68px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 0.45s;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16.5px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.nav-open { overflow: hidden; }
+
+img, svg, video { display: block; max-width: 100%; height: auto; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: italic;
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 0 0 0.5em;
+}
+
+/* Headings scale on a gentle linear curve (rem base + vw growth) rather than
+   pure vw, so the floor stays readable on 360px phones and the ceiling does
+   not outgrow its column on wide screens. Sizes were set against the measured
+   wrap points of the longest headings in this site. */
+h1 { font-size: clamp(2.25rem, 1.2rem + 3.4vw, 4.5rem); }
+h2 { font-size: clamp(1.85rem, 1.1rem + 2.6vw, 3.25rem); }
+h3 { font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.65rem); }
+h4 { font-size: 1.1rem; }
+
+h1, h2 { text-wrap: balance; }
+
+p { margin: 0 0 1.15em; color: var(--muted); }
+p:last-child { margin-bottom: 0; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: var(--white); color: var(--black); }
+
+:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  background: var(--white);
+  color: var(--black);
+  padding: 12px 20px;
+  font-weight: 700;
+}
+.skip-link:focus { left: 12px; top: 12px; }
+
+/* --------------------------------------------------------------------------
+   3. Layout helpers
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section { padding: clamp(64px, 9vw, 120px) 0; }
+.section--tight { padding: clamp(48px, 6vw, 80px) 0; }
+.section--surface { background: var(--surface); }
+.section--black { background: var(--black); }
+
+.section-head {
+  max-width: 700px;
+  margin: 0 auto clamp(40px, 5vw, 64px);
+  text-align: center;
+}
+.section-head--left { margin-left: 0; text-align: left; }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.chrome-text {
+  background: var(--chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead { font-size: 1.08rem; color: var(--muted); }
+
+.rule {
+  width: 56px;
+  height: 2px;
+  background: var(--chrome);
+  border: 0;
+  margin: 26px 0 0;
+}
+.section-head:not(.section-head--left) .rule { margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   4. Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--white);
+  --btn-bd: var(--line-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-bd);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease), transform 0.2s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--solid { --btn-bg: var(--white); --btn-fg: var(--black); --btn-bd: var(--white); }
+.btn--solid:hover { --btn-bg: #d5d8dc; --btn-bd: #d5d8dc; }
+
+.btn--ghost:hover { --btn-bg: var(--white); --btn-fg: var(--black); --btn-bd: var(--white); }
+
+.btn--dark { --btn-bg: var(--black); --btn-fg: var(--white); --btn-bd: var(--black); }
+.btn--dark:hover { --btn-bg: #26272b; --btn-bd: #26272b; }
+
+.btn--sm { padding: 10px 20px; font-size: 0.9rem; }
+
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.92rem;
+  color: var(--white);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color var(--dur) var(--ease), gap var(--dur) var(--ease);
+}
+.link-more::after { content: "→"; transition: transform var(--dur) var(--ease); }
+.link-more:hover { border-color: var(--white); }
+.link-more:hover::after { transform: translateX(5px); }
+
+/* --------------------------------------------------------------------------
+   5. Header / navigation
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(8, 8, 10, 0.92), rgba(8, 8, 10, 0));
+  transition: height var(--dur) var(--ease), background var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.site-header.is-stuck {
+  height: var(--header-h-sm);
+  background: rgba(8, 8, 10, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand { flex: none; }
+.brand img { width: 92px; height: auto; }
+
+.nav { display: flex; align-items: center; gap: 34px; }
+
+.nav a {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  position: relative;
+  padding: 6px 0;
+  transition: color var(--dur) var(--ease);
+}
+.nav a:hover { color: var(--white); }
+
+.nav a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--chrome);
+  transition: width var(--dur) var(--ease);
+}
+.nav a:not(.btn):hover::after,
+.nav a.is-active::after { width: 100%; }
+.nav a.is-active { color: var(--white); }
+
+/* The Contact item is a nav link and a solid button at the same time, so it is
+   matched by both .nav a.is-active (0,2,1) and .nav .btn (0,2,0). The active
+   rule used to win and paint the label white on the white button, making it
+   vanish on contact.html. Matching that specificity keeps the button's own
+   foreground colour on every page, active or hovered. */
+.nav a.btn,
+.nav a.btn:hover,
+.nav a.btn.is-active { color: var(--btn-fg); }
+
+.nav-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+  position: relative;
+}
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: var(--white);
+  transform: translateX(-50%);
+  transition: transform 0.3s var(--ease), opacity 0.2s linear;
+}
+.nav-toggle span { top: 50%; margin-top: -1px; }
+.nav-toggle span::before { content: ""; left: 0; transform: translateY(-6px); }
+.nav-toggle span::after  { content: ""; left: 0; transform: translateY(6px); }
+
+.nav-toggle[aria-expanded="true"] span { background: transparent; }
+.nav-toggle[aria-expanded="true"] span::before { transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span::after  { transform: rotate(-45deg); }
+
+/* --------------------------------------------------------------------------
+   6. Hero slider (home)
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  height: clamp(560px, 92vh, 900px);
+  overflow: hidden;
+  background: var(--black);
+}
+
+.hero__slides { position: absolute; inset: 0; }
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s var(--ease), visibility 1s var(--ease);
+}
+.hero__slide.is-active { opacity: 1; visibility: visible; }
+
+.hero__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 7s linear;
+}
+.hero__slide.is-active img { transform: scale(1); }
+
+.hero__slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(8, 8, 10, 0.9) 0%, rgba(8, 8, 10, 0.45) 55%, rgba(8, 8, 10, 0.75) 100%),
+    linear-gradient(to top, rgba(8, 8, 10, 0.95), rgba(8, 8, 10, 0) 60%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: clamp(80px, 12vh, 140px);
+}
+
+/* 720px gives the two-line headline room to stay two lines: at this column
+   width the headline wraps only past 76px, and the clamp below tops out at
+   68px, leaving headroom for the fallback font if Google Fonts is blocked. */
+.hero__copy { max-width: min(720px, 100%); }
+.hero__copy h1 {
+  /* Floor is set by the longest line, "DONE TO THE MILLIMETER", which needs
+     ~9.1x the font size in width once uppercased — at a 320px viewport only
+     284px is available, so the headline must drop to ~28px to stay on one
+     line. Ceiling is capped below the 76px wrap point of the 720px column. */
+  font-size: clamp(1.75rem, 1.05rem + 3.3vw, 4.25rem);
+  margin-bottom: 0.35em;
+}
+.hero__copy p { font-size: 1.12rem; max-width: 520px; }
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.hero__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 54px;
+  height: 54px;
+  margin-top: -27px;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 8, 10, 0.4);
+  border: 1px solid var(--line-strong);
+  color: var(--white);
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.hero__arrow:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+.hero__arrow--prev { left: max(16px, calc(50vw - var(--container) / 2 - 66px)); }
+.hero__arrow--next { right: max(16px, calc(50vw - var(--container) / 2 - 66px)); }
+
+.hero__dots {
+  position: absolute;
+  z-index: 3;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+}
+.hero__dots button {
+  width: 34px;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.28);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease);
+}
+.hero__dots button.is-active { background: var(--white); }
+
+/* Compact page hero (inner pages) */
+.page-hero {
+  position: relative;
+  padding: calc(var(--header-h) + clamp(70px, 11vw, 130px)) 0 clamp(60px, 9vw, 110px);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/hero-1.svg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+}
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--black) 8%, rgba(8, 8, 10, 0.4));
+}
+
+/* Per-page banner photo. background-size: cover on ::before already fills the
+   band at any viewport without distorting; only the source changes here.
+   The base 0.18 opacity was tuned for the abstract SVG placeholder used as a
+   texture; at that value real photography contributes ~0.004 of luminance and
+   reads as no photo at all. 0.75 lets the car show while the ::after wash
+   still keeps the white headline well above contrast minimums. */
+.page-hero--services::before {
+  background-image: url("../../images/vinyl-wrap-services-hero.jpg");
+  opacity: 0.75;
+}
+
+.page-hero--about::before {
+  background-image: url("../../images/about-hero.jpg");
+  opacity: 0.75;
+}
+
+.page-hero--gallery::before {
+  background-image: url("../../images/gallery-hero.jpg");
+  opacity: 0.75;
+}
+
+.page-hero--contact::before {
+  background-image: url("../../images/contact-hero.jpg");
+  opacity: 0.75;
+}
+.page-hero .container { position: relative; z-index: 2; }
+.page-hero h1 { margin-bottom: 0.2em; }
+.page-hero p { max-width: 560px; }
+
+.breadcrumb {
+  display: flex;
+  gap: 10px;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-dim);
+  margin-bottom: 18px;
+}
+.breadcrumb a:hover { color: var(--white); }
+
+/* --------------------------------------------------------------------------
+   7. Service cards
+   -------------------------------------------------------------------------- */
+/* Every auto-fit grid below wraps its minimum track in min(<track>, 100%).
+   Without it, a track minimum wider than the available column (e.g. 320px of
+   track inside the 284px a 320px-wide phone leaves after gutters) forces an
+   overflow that body{overflow-x:hidden} then silently clips. */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.card { position: relative; }
+
+.card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
+  margin-bottom: 22px;
+}
+/* Service photography stays in full color at rest — hover only scales. */
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.9s var(--ease);
+}
+.card:hover .card__media img { transform: scale(1.07); }
+
+/* No mix-blend-mode here: overlay reads fine over a mid-grey placeholder but
+   collapses to ~1.5:1 contrast over real photography, which is near-black in
+   this set. Solid white plus a soft shadow keeps the number legible on any
+   photo, light or dark. */
+.card__index {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 18px rgba(8, 8, 10, 0.9), 0 1px 3px rgba(8, 8, 10, 0.7);
+}
+
+/* Colour only: the display font, weight and clamp sizing stay as inherited. */
+.card h3 { margin-bottom: 0.5em; color: var(--steel); }
+.card p { font-size: 0.98rem; margin-bottom: 1.4em; }
+
+/* Starting price. The label stays quiet in the display face while the figure
+   carries the chrome accent, the same treatment the stat numerals used. */
+.card__price {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.82rem;
+  color: var(--muted-dim);
+  margin: 0 0 1.4em;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.card__price b {
+  font-weight: 800;
+  font-size: 1.65rem;
+  letter-spacing: 0.02em;
+  background: var(--chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   8. Split sections
+   -------------------------------------------------------------------------- */
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+}
+.split--reverse .split__media { order: 2; }
+
+.split__media img { width: 100%; }
+
+/* Opt-in frame for split media that holds real photography. Locks the box to
+   the 4:3 the layout was drawn against, so the section keeps its height no
+   matter what ratio the photo arrives at, and object-fit crops rather than
+   stretches — the image is never distorted. */
+.split__media--framed {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.split__media--framed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.9s var(--ease);
+}
+.split__media--framed:hover img { transform: scale(1.05); }
+
+/* Optional rounding, kept separate from --framed so each split media decides
+   for itself. Carries its own overflow: hidden so the radius clips the image
+   even when --framed (which also hides overflow) is not applied. */
+.split__media--rounded {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.split__body .brand-lockup { width: 120px; margin-bottom: 26px; }
+
+/* Checklist */
+.check {
+  display: grid;
+  gap: 12px;
+  margin: 28px 0 0;
+}
+.check li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--muted);
+}
+.check li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 12px;
+  height: 2px;
+  background: var(--chrome);
+}
+.check--dark li { color: #3a3b40; }
+.check--dark li::before { background: var(--black); }
+
+/* --------------------------------------------------------------------------
+   9. Feature band (mirrors the red block of the reference, in chrome/white)
+   -------------------------------------------------------------------------- */
+.band {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  background: var(--surface);
+}
+/* overflow: hidden makes the rounded corners clip the image, and contains the
+   hover zoom so the scaled photo never spills past the frame. */
+.band__media {
+  position: relative;
+  min-height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.band__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.9s var(--ease);
+}
+.band__media:hover img { transform: scale(1.05); }
+.band__media figcaption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 16px 22px;
+  background: rgba(8, 8, 10, 0.7);
+  font-family: var(--font-display);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.85rem;
+}
+
+.band__panel {
+  background: var(--chrome-soft);
+  color: var(--black);
+  padding: clamp(44px, 6vw, 84px) clamp(28px, 5vw, 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.band__panel h2 { color: var(--black); margin-bottom: 0.15em; }
+.band__panel .eyebrow { color: #4a4b50; }
+.band__panel p { color: #3a3b40; }
+
+.hotline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  align-self: flex-start;
+  margin-top: 34px;
+  padding: 14px 30px;
+  border-radius: 999px;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: transform 0.25s var(--ease), background var(--dur) var(--ease);
+}
+.hotline:hover { transform: translateY(-2px); background: #26272b; }
+
+/* --------------------------------------------------------------------------
+   10. Stats
+   -------------------------------------------------------------------------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.stat {
+  background: var(--bg);
+  padding: 38px 28px;
+  text-align: center;
+}
+.stat__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+  line-height: 1;
+  background: var(--chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat__label {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-dim);
+}
+
+/* --------------------------------------------------------------------------
+   11. Process steps
+   -------------------------------------------------------------------------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: clamp(24px, 3vw, 36px);
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  padding: 34px 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.step:hover { border-color: var(--line-strong); transform: translateY(-4px); }
+.step::before {
+  counter-increment: step;
+  content: "0" counter(step);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.6rem;
+  background: var(--chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.step h3 { margin: 10px 0 0.5em; font-size: 1.2rem; }
+.step p { font-size: 0.96rem; }
+
+/* --------------------------------------------------------------------------
+   12. Service detail rows
+   -------------------------------------------------------------------------- */
+.service-row { padding: clamp(56px, 7vw, 96px) 0; border-bottom: 1px solid var(--line); }
+.service-row:last-of-type { border-bottom: 0; }
+
+/* The three service photos come in at slightly different aspect ratios
+   (5:4 for wrap and chrome delete, 1.16:1 for tint). Locking the frame to 5:4
+   and letting object-fit crop keeps all three rows the same height, so the
+   text column stays aligned against the image instead of drifting row to row.
+   width/height on the <img> still reserve the box before the file loads. */
+.service-row .split__media {
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+/* overflow: hidden on the frame above keeps the hover zoom inside the 5:4 box. */
+.service-row .split__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.9s var(--ease);
+}
+.service-row .split__media:hover img { transform: scale(1.05); }
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.pill {
+  padding: 7px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* FAQ */
+.faq { display: grid; gap: 12px; max-width: 860px; margin: 0 auto; }
+.faq details {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 20px 24px;
+}
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--muted);
+  transition: transform 0.3s var(--ease);
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq p { margin-top: 14px; font-size: 0.98rem; }
+
+/* --------------------------------------------------------------------------
+   13. Gallery
+   -------------------------------------------------------------------------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 42px;
+}
+.filter {
+  padding: 9px 22px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+}
+.filter:hover { color: var(--white); border-color: var(--line-strong); }
+.filter.is-active { background: var(--white); color: var(--black); border-color: var(--white); }
+
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+  gap: 10px;
+}
+.mosaic--home { grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr)); }
+
+/* overflow: hidden lets the radius clip the photo and contains the hover zoom. */
+.tile {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--surface-2);
+  border: 0;
+  border-radius: 14px;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+}
+.tile--wide { grid-column: span 2; aspect-ratio: 2 / 1; }
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.tile:hover img { transform: scale(1.08); }
+
+.tile__label {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 40px 18px 16px;
+  background: linear-gradient(to top, rgba(8, 8, 10, 0.92), transparent);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.tile:hover .tile__label,
+.tile:focus-visible .tile__label { opacity: 1; transform: translateY(0); }
+
+.tile[hidden] { display: none; }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background: rgba(6, 6, 8, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.lightbox.is-open { display: grid; }
+.lightbox img {
+  max-width: min(1100px, 92vw);
+  max-height: 82vh;
+  width: auto;
+  object-fit: contain;
+}
+.lightbox__caption {
+  margin-top: 18px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--white);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.lightbox__close:hover,
+.lightbox__nav:hover { background: var(--white); color: var(--black); }
+.lightbox__close { top: 22px; right: 22px; }
+.lightbox__nav--prev { left: 22px; top: 50%; margin-top: -25px; }
+.lightbox__nav--next { right: 22px; top: 50%; margin-top: -25px; }
+
+/* --------------------------------------------------------------------------
+   14. Contact
+   -------------------------------------------------------------------------- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.info-card {
+  background: var(--bg);
+  padding: 34px 28px;
+}
+.info-card h3 { font-size: 1.05rem; margin-bottom: 0.6em; }
+.info-card p, .info-card address {
+  font-style: normal;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+.info-card a:hover { color: var(--white); }
+
+.form-wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+
+.form { display: grid; gap: 20px; }
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 20px;
+}
+
+.field { display: grid; gap: 8px; }
+.field label {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.field .req { color: var(--white); }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.field textarea { resize: vertical; min-height: 150px; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--white);
+  background: var(--surface-2);
+}
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted-dim); }
+
+.field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 20px) center, calc(100% - 14px) center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.field .error {
+  font-size: 0.85rem;
+  color: #ff8b8b;
+  min-height: 1em;
+}
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] { border-color: #ff8b8b; }
+
+.form__status {
+  padding: 16px 20px;
+  border: 1px solid var(--line-strong);
+  border-left-width: 3px;
+  background: var(--surface);
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.form__status:empty { display: none; }
+.form__status.is-ok    { border-left-color: var(--white); background: var(--surface-2); }
+.form__status.is-error { border-left-color: #ff8b8b; color: #ffc9c9; }
+
+.form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: progress;
+  transform: none;
+}
+
+.hours { display: grid; gap: 10px; }
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+.hours li span:first-child {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+
+/* overflow: hidden is what makes the radius actually clip the map; without it
+   the image keeps square corners and pokes past the rounded border. No hover
+   transform here on purpose: this slot holds a graphic, not a photo. */
+.map-frame {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.map-frame img { width: 100%; }
+
+/* --------------------------------------------------------------------------
+   15. CTA strip
+   -------------------------------------------------------------------------- */
+.cta {
+  position: relative;
+  padding: clamp(60px, 8vw, 100px) 0;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.cta h2 { margin-bottom: 0.3em; }
+.cta .hero__actions { justify-content: center; }
+
+/* --------------------------------------------------------------------------
+   16. Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--black);
+  padding: clamp(56px, 7vw, 84px) 0 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  padding-bottom: 56px;
+}
+.footer-brand img { width: 110px; margin-bottom: 20px; }
+.footer-brand p { font-size: 0.94rem; max-width: 280px; }
+
+.site-footer h4 {
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.site-footer ul { display: grid; gap: 10px; }
+.site-footer li, .site-footer address {
+  font-style: normal;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.site-footer a:hover { color: var(--white); }
+
+.footer-bar {
+  border-top: 1px solid var(--line);
+  padding: 22px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--muted-dim);
+}
+
+/* --------------------------------------------------------------------------
+   17. Scroll reveal
+
+   Scoped to .js (set by an inline script in each <head>) so that content is
+   never left stuck at opacity:0 if JavaScript fails or is turned off.
+   -------------------------------------------------------------------------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+.js .reveal[data-delay="1"] { transition-delay: 0.12s; }
+.js .reveal[data-delay="2"] { transition-delay: 0.24s; }
+.js .reveal[data-delay="3"] { transition-delay: 0.36s; }
+
+/* --------------------------------------------------------------------------
+   18. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+
+  .nav {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(340px, 84vw);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 26px;
+    padding: 40px;
+    background: var(--surface);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease);
+  }
+  .nav.is-open { transform: none; }
+  .nav a { font-size: 1.5rem; }
+
+  .split--reverse .split__media { order: 0; }
+  .hero__arrow { display: none; }
+  .hero__copy p { font-size: 1rem; }
+  .tile--wide { grid-column: span 1; aspect-ratio: 1 / 1; }
+}
+
+@media (max-width: 560px) {
+  :root { --gutter: 18px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .band__media { min-height: 280px; }
+  .mosaic { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .hero__actions .btn { width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   19. Motion & print
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .js .reveal { opacity: 1; transform: none; }
+  .hero__slide img { transform: none; }
+}
+
+@media print {
+  .site-header, .hero__arrow, .hero__dots, .nav-toggle, .lightbox { display: none !important; }
+  body { background: #fff; color: #000; }
+}

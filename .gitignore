@@ -1,3 +1,23 @@
+# Dependencies
 node_modules/
+
+# Build and deploy output
+dist/
+build/
+.vercel/
+
+# OS and editor cruft
 .DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.vscode/
+.idea/
+
+# Logs and temp files
 *.log
+npm-debug.log*
+*.tmp
+*.temp
+*.bak

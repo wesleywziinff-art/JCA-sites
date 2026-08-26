@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" width="220" height="72" role="img" aria-label="JCA">
+  <!-- Placeholder wordmark. Overwrite this file with the official JCA logo export
+       (same name, same viewBox ratio) and every page picks it up automatically. -->
+  <g transform="translate(110 54) skewX(-9)">
+    <text x="0" y="0" text-anchor="middle"
+          font-family="'Arial Black', 'Helvetica Neue', Impact, sans-serif"
+          font-size="58" font-weight="900" letter-spacing="-1"
+          fill="#ffffff">JCA</text>
+  </g>
+</svg>

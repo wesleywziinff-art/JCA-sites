@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact JCA | Free Quote on Wrap, Tint &amp; Chrome Delete | Atlanta, GA</title>
+<meta name="description" content="Contact JCA in Atlanta, Georgia for a free quote on vinyl wrap, window tint or chrome delete. Call, email or send us your vehicle details.">
+<meta property="og:title" content="Contact JCA | Atlanta, GA">
+<meta property="og:description" content="Get a free quote on vinyl wrap, window tint or chrome delete in Atlanta, Georgia.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="JCA home">
+      <img src="images/jca-logo.png" alt="JCA" width="92" height="25">
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html" class="btn btn--solid btn--sm is-active" aria-current="page">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-hero page-hero--contact">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><span>/</span><span>Contact</span>
+      </nav>
+      <h1>Get in <span class="chrome-text">Touch</span></h1>
+      <p class="lead">Tell us the vehicle and what you have in mind. Quotes are free, and we answer honestly about what your car actually needs.</p>
+    </div>
+  </section>
+
+  <!-- ============================= FORM ============================= -->
+  <section class="section">
+    <div class="container form-wrap">
+
+      <div class="reveal">
+        <span class="eyebrow">Request a Quote</span>
+        <h2>Tell us about your vehicle</h2>
+        <p>The more detail you give us, the closer the estimate. Year, make, model and the finish you are picturing is usually enough to start.</p>
+
+        <!--
+          NOTE FOR DEVELOPERS
+          Submissions POST to the Supabase table contact_submissions. Validation
+          and the fetch call both live in the contactForm block of
+          assets/js/main.js, along with the project URL and publishable key.
+        -->
+        <form class="form" id="contactForm" novalidate>
+          <div class="form__row">
+            <div class="field">
+              <label for="name">Full Name <span class="req">*</span></label>
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="Jordan Carter" required>
+              <span class="error" id="name-error" role="alert"></span>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+              <span class="error" id="email-error" role="alert"></span>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(678) 898-4249" required>
+              <span class="error" id="phone-error" role="alert"></span>
+            </div>
+            <div class="field">
+              <label for="vehicle">Vehicle <span class="req">*</span></label>
+              <input type="text" id="vehicle" name="vehicle" placeholder="2021 Audi A5" required>
+              <span class="error" id="vehicle-error" role="alert"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="service">Service Needed <span class="req">*</span></label>
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option value="wrap">Vinyl Wrap</option>
+              <option value="tint">Window Tint</option>
+              <option value="chrome-delete">Chrome Delete</option>
+              <option value="multiple">More Than One Service</option>
+              <option value="other">Something Else</option>
+            </select>
+            <span class="error" id="service-error" role="alert"></span>
+          </div>
+
+          <div class="field">
+            <label for="message">Project Details <span class="req">*</span></label>
+            <textarea id="message" name="message" placeholder="Color and finish you have in mind, coverage, timing, anything we should know about the paint or glass." required></textarea>
+            <span class="error" id="message-error" role="alert"></span>
+          </div>
+
+          <div class="form__status" role="status" aria-live="polite"></div>
+
+          <div>
+            <button class="btn btn--solid" type="submit">Send Request</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="reveal" data-delay="1">
+        <span class="eyebrow">Service Hours</span>
+        <h3>When we are open</h3>
+        <ul class="hours">
+          <li><span>Mon &ndash; Fri</span><span>9:00 AM &ndash; 6:00 PM</span></li>
+          <li><span>Saturday</span><span>10:00 AM &ndash; 4:00 PM</span></li>
+          <li><span>Sunday</span><span>Closed</span></li>
+        </ul>
+
+        <p style="margin-top:24px">Appointments outside these hours can usually be arranged in advance. Just ask when you book.</p>
+
+        <div class="map-frame" style="margin-top:32px">
+          <img src="images/service-area-map.jpg" width="1774" height="887" loading="lazy"
+               alt="Map of the metro Atlanta service area, with Buckhead, Midtown, Decatur, Sandy Springs, Marietta, Smyrna and Alpharetta marked around Atlanta">
+        </div>
+
+        <div class="hero__actions">
+          <a class="btn btn--ghost btn--sm" href="tel:+16788984249">Call Us</a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/jca-logo.png" alt="JCA" width="110" height="30">
+        <p>Mobile automotive styling in Atlanta, Georgia. Vinyl wrap, window tint and chrome delete, done at your place.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Service Area</h4>
+        <address>
+          Mobile service across<br>
+          metro Atlanta, GA
+        </address>
+        <p style="margin-top:14px">Mon&ndash;Fri 9:00 AM &ndash; 6:00 PM<br>Sat 10:00 AM &ndash; 4:00 PM</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+16788984249">(678) 898-4249</a></li>
+          <li><a href="mailto:info@jcaatlanta.com">info@jcaatlanta.com</a></li>
+          <li><a href="contact.html">Request a quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span>&copy; <span data-year>2026</span> JCA. All rights reserved.</span>
+      <span>Atlanta, Georgia &middot; Vinyl Wrap &middot; Window Tint &middot; Chrome Delete</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
